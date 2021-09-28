@@ -1,0 +1,23 @@
+name: multidoc2dial
+channels:
+  - pytorch
+  - defaults
+  - nvidia
+dependencies:
+  - python=3.9
+  - pip
+  - pytorch=1.9.1
+  - cudatoolkit=11.1
+  - pip:
+    - tensorboard==2.5.0
+    - tensorboardX==2.1
+    - transformers==4.7.0
+    - pytorch_lightning==1.1.8
+    - datasets==1.12.1
+    - GitPython
+    - psutil
+    - sentencepiece
+    - rouge-score
+    - sacrebleu
+    - rank-bm25
+    - faiss-cpu
