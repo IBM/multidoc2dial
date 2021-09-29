@@ -29,9 +29,9 @@ python rag/finetune_rag_dialdoc.py \
     --profile \
     --do_train \
     --gpus 1 \
-    --n_train 10 \
-    --n_val 2 \
-    --n_test 2 \
+    --n_train -1 \
+    --n_val -1 \
+    --n_test -1 \
     --n_docs 5 \
     --train_batch_size 8 \
     --eval_batch_size 2 \
