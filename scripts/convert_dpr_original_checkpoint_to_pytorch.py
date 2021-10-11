@@ -65,7 +65,6 @@ class DPRContextEncoderState(DPRState):
                 key = key[len(prefix) :]
                 if not key.startswith("encode_proj."):
                     key = "bert_model." + key
-                key = key.replace("bert_model.encoder", "bert_model")
                 state_dict[key] = value
         encoder.load_state_dict(state_dict)
         return model
@@ -84,7 +83,6 @@ class DPRQuestionEncoderState(DPRState):
                 key = key[len(prefix) :]
                 if not key.startswith("encode_proj."):
                     key = "bert_model." + key
-                key = key.replace("bert_model.encoder", "bert_model")
                 state_dict[key] = value
         encoder.load_state_dict(state_dict)
         return model
