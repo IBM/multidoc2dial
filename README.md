@@ -73,7 +73,7 @@ To finetune RAG on MultiDoc2Dial data, please refer to
 
 ## Evaluations
 
-To evaluate the retrieval results, please refer to
+To evaluate the retrieval results (recall@n for passage and document level), please refer to
 
 [`run_eval_rag_re.sh`](scripts/run_eval_rag_re.sh)
 
