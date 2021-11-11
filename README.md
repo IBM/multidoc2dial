@@ -56,7 +56,13 @@ For domain adaptation setting, please refer to
 
 To finetune DPR, we use Facebook [DPR](https://github.com/facebookresearch/DPR) with an effective batch size 128.
 
-Convert DPR checkpoint with the [converter](https://github.com/huggingface/transformers/blob/master/src/transformers/models/dpr/convert_dpr_original_checkpoint_to_pytorch.py) , please refer to
+Convert your fine-tuned DPR checkpoint with the [converter](https://github.com/huggingface/transformers/blob/master/src/transformers/models/dpr/convert_dpr_original_checkpoint_to_pytorch.py);
+or you can access our fine-tuned DPR encoders with the following paths
+
+- `sivasankalpp/dpr-multidoc2dial-token-question-encoder` for fine-tuned dpr question encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-question-encoder))
+- `sivasankalpp/dpr-multidoc2dial-token-ctx-encoder` for fine-tuned dpr ctx encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-ctx-encoder))
+- `sivasankalpp/dpr-multidoc2dial-structure-question-encoder` fine-tuned dpr question encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-question-encoder))
+- `sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder` for fine-tuned dpr ctx encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder))
 
 Download the following files from RAG model cards to "../data" folder
 
