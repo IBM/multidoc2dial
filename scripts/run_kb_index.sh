@@ -5,6 +5,8 @@ seg=$1 # token structure
 
 dpr=dpr-$domain-$seg
 rag_model_name=$CHECKPOINTS/rag-$dpr
+# config "ctx_model_name" for ctx encoder to your local path to DPR encoder;
+# or use our uploaded model, such as "sivasankalpp/dpr-multidoc2dial-token-ctx-encoder" or "sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder"
 ctx_model_name=$CHECKPOINTS/$dpr/ctx_encoder
 KB_FOLDER=../data/mdd_kb/
 

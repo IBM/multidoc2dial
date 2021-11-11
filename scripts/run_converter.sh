@@ -27,6 +27,8 @@ cp ../data/vocab.txt $CHECKPOINTS/$config/question_encoder/
 cp ../data/tokenizer_config.json $CHECKPOINTS/$config/ctx_encoder/
 cp ../data/vocab.txt $CHECKPOINTS/$config/ctx_encoder/
 
+# config "model_path" for question encoder to your local path to DPR encoder;
+# or use our uploaded model, such as "sivasankalpp/dpr-multidoc2dial-token-question-encoder" or "sivasankalpp/dpr-multidoc2dial-structure-question-encoder"
 python model_converter.py \
 --model_path $CHECKPOINTS/$config/question_encoder \
 --out_path $CHECKPOINTS/rag-$config
