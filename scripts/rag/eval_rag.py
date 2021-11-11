@@ -124,7 +124,7 @@ def get_precision_at_k(args, preds_path, gold_data_path):
     r_1_p = 100.0 * r_1_p / total
     r_5_p = 100.0 * r_5_p / total
     r_10_p = 100.0 * r_10_p / total
-    logger.info(f"Pid_Prec@5: {r_1_p: .2f}")
+    logger.info(f"Pid_Prec@1: {r_1_p: .2f}")
     logger.info(f"Pid_Prec@5: {r_5_p: .2f}")
     logger.info(f"Pid_Prec@10: {r_10_p: .2f}")
     logger.info(f"all: {r_1: .2f} & {r_5: .2f} & {r_10: .2f}  & {r_1_p: .2f} & {r_5_p: .2f} & {r_10_p: .2f} & ")
