@@ -32,44 +32,57 @@ cd scripts
 
 ### Document preprocessing
 
-To split the document to passages and create FAISS index, please refer to
+To segment the document into passages, please refer to
 
-[`run_data_preprocessing.sh`](scripts/run_data_preprocessing.sh)
+> [`run_data_preprocessing.sh`](scripts/run_data_preprocessing.sh)
 
 For domain adaptation set up with a target domain, e.g.,  `domain=ssa`, please refer to
 
-[`run_data_preprocessing_domain.sh`](scripts/run_data_preprocessing_domain.sh)
+> [`run_data_preprocessing_domain.sh`](scripts/run_data_preprocessing_domain.sh)
 
 ### Data preprocessing for fine-tuning DPR
 
 To create positive and negative examples in the format of [DPR](https://github.com/facebookresearch/DPR) , please refer to
 
-[`run_data_preprocessing_dpr.sh`](scripts/run_data_preprocessing_dpr.sh)
+> [`run_data_preprocessing_dpr.sh`](scripts/run_data_preprocessing_dpr.sh)
 
 For domain adaptation setting, please refer to
 
-[`run_data_preprocessing_dpr_domain.sh`](scripts/run_data_preprocessing_dpr_domain.sh)
+> [`run_data_preprocessing_dpr_domain.sh`](scripts/run_data_preprocessing_dpr_domain.sh)
 
-## Baselines
+## Run Baselines
 
 ### Finetuning DPR
 
 To finetune DPR, we use Facebook [DPR](https://github.com/facebookresearch/DPR) with an effective batch size 128.
 
 Convert your fine-tuned DPR checkpoint with the [converter](https://github.com/huggingface/transformers/blob/master/src/transformers/models/dpr/convert_dpr_original_checkpoint_to_pytorch.py);
-or you can access our fine-tuned DPR encoders with the following paths
-
-- `sivasankalpp/dpr-multidoc2dial-token-question-encoder` for fine-tuned dpr question encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-question-encoder))
-- `sivasankalpp/dpr-multidoc2dial-token-ctx-encoder` for fine-tuned dpr ctx encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-ctx-encoder))
-- `sivasankalpp/dpr-multidoc2dial-structure-question-encoder` fine-tuned dpr question encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-question-encoder))
-- `sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder` for fine-tuned dpr ctx encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder))
 
 Download the following files from RAG model cards to "../data" folder
 
 - <https://huggingface.co/facebook/rag-token-nq/resolve/main/question_encoder_tokenizer/tokenizer_config.json>
 - <https://huggingface.co/facebook/rag-token-nq/blob/main/question_encoder_tokenizer/vocab.txt>
 
-[`run_converter.sh`](scripts/run_converter.sh)
+To include your DPR encoders in RAG model, please refer to
+
+> [`run_converter.sh`](scripts/run_converter.sh)
+
+**Or you can try our fine-tuned DPR encoders with the following paths**
+
+- `sivasankalpp/dpr-multidoc2dial-token-question-encoder` for fine-tuned DPR question encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-question-encoder))
+- `sivasankalpp/dpr-multidoc2dial-token-ctx-encoder` for fine-tuned DPR ctx encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-ctx-encoder))
+- `sivasankalpp/dpr-multidoc2dial-structure-question-encoder` fine-tuned DPR question encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-question-encoder))
+- `sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder` for fine-tuned DPR ctx encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder))
+
+To include our fine-tuned DPR encoders in RAG model, please refer to
+
+> [`run_converter_modelcard.sh`](scripts/run_converter_modelcard.sh)
+
+### Creating Document Index
+
+To create FAISS index, please refer to
+
+> [`run_kb_index.sh`](scripts/run_kb_index.sh)
 
 ### Finetuning RAG
 
@@ -91,7 +104,6 @@ To evaluate the generation results, please refer to
 
 The evaluation results on the validation set of agent response generation task Please refer to the `scripts` for corresponding hyperparameters.
 
-
 | Model       |F1    |    EM|  BLEU|  r@1 | r@5 |  r@10 |
 | ----------- | ---- | ---- | ---- | ---- | ---- | ---- |
 | D-token-nq  | 30.9 | 2.8 | 15.7 | 25.8 | 48.2 | 57.7  |
@@ -100,4 +112,5 @@ The evaluation results on the validation set of agent response generation task P
 | D-struct-ft | 33.7 | 3.5 | 19.5 | 37.5 | 67.0 | 75.8  |
 
 ## Acknowledgement
+
 Our code is based on [Huggingface Transformers](https://github.com/huggingface/transformers). Our dataset is based on [Doc2Dial](https://arxiv.org/abs/2011.06623). We thank the authors for sharing their great work.
