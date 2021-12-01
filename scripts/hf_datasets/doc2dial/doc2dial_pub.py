@@ -24,6 +24,7 @@ from types import CodeType
 import datasets
 
 MAX_Q_LEN = 128
+DATA_DIR = "../data"
 
 logger = datasets.logging.get_logger(__name__)
 
@@ -192,7 +193,7 @@ class Doc2dial(datasets.GeneratorBasedBuilder):
         my_urls = _URLs
 
         # data_dir = dl_manager.download_and_extract(my_urls)
-        data_dir = "../data"
+        data_dir = DATA_DIR
 
         if self.config.name == "dialogue_domain":
             return [
@@ -269,7 +270,8 @@ class Doc2dial(datasets.GeneratorBasedBuilder):
             ]
 
     def _load_doc_data_rc(self, filepath):
-        doc_filepath = os.path.join(os.path.dirname(filepath), "multidoc2dial_doc.json")
+        # doc_filepath = os.path.join(os.path.dirname(filepath), "multidoc2dial_doc.json")
+        doc_filepath = os.path.join(DATA_DIR, "multidoc2dial/multidoc2dial_doc.json")
         with open(doc_filepath, encoding="utf-8") as f:
             data = json.load(f)["doc_data"]
         return data
