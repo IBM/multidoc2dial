@@ -44,10 +44,9 @@ cd scripts
 ### Document preprocessing
 
 To segment the document into passages, please refer to
+
 > [`run_data_preprocessing.sh`](scripts/run_data_preprocessing.sh)
 
-For domain adaptation set up with a target domain, e.g.,  `domain=ssa`, please refer to
-> [`run_data_preprocessing_domain.sh`](scripts/run_data_preprocessing_domain.sh)
 
 ### Data preprocessing for fine-tuning DPR
 
@@ -60,6 +59,7 @@ To create positive and negative examples in the format of [DPR](https://github.c
 ### Finetuning DPR
 
 To finetune DPR, we use Facebook [DPR](https://github.com/facebookresearch/DPR) (March 2021 release)  with an effective batch size 128.
+
 
 ```bash
 https://github.com/facebookresearch/DPR.git
@@ -76,6 +76,7 @@ Download the following files from RAG model cards to "../data" folder
 - <https://huggingface.co/facebook/rag-token-nq/blob/main/question_encoder_tokenizer/vocab.txt>
 
 To include your DPR encoders in RAG model, please refer to
+
 > [`run_converter.sh`](scripts/run_converter.sh)
 
 **Or you can try our fine-tuned DPR encoders with the following paths**
@@ -89,11 +90,13 @@ To include your DPR encoders in RAG model, please refer to
 - `sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder` for fine-tuned DPR ctx encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder))
 
 To include our fine-tuned DPR encoders in RAG model, please refer to
+
 > [`run_converter_modelcard.sh`](scripts/run_converter_modelcard.sh)
 
 ### Creating Document Index
 
 To create FAISS index, please refer to
+
 > [`run_kb_index.sh`](scripts/run_kb_index.sh)
 
 ### Finetuning RAG

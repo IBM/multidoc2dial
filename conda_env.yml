@@ -11,9 +11,9 @@ dependencies:
   - pip:
     - tensorboard==2.5.0
     - tensorboardX==2.1
-    - transformers==4.7.0
+    - transformers==4.12.1
     - pytorch_lightning==1.1.8
-    - datasets==1.12.1
+    - datasets==1.16.1
     - GitPython
     - psutil
     - sentencepiece
