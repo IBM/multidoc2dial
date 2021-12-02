@@ -1,0 +1,27 @@
+[
+    {
+        "id": "1409501a35697e0ce68561e29577b90a_1",
+        "utterance": "You will need to get insurance or we will suspend your registration and license",
+        "grounding": "Because we all pay indirectly for crashes involving uninsured motorists , New York State requires every motorist to maintain auto insurance every single day a vehicle is registered. DMV works with insurance companies to electronically monitor your insurance coverage ,"
+    },
+    {
+        "id": "1409501a35697e0ce68561e29577b90a_3",
+        "utterance": "Okay, have you received a letter from the DMV letting you know how to clear things up?",
+        "grounding": "we mail you an insurance inquiry letter to allow you to clear up the problem."
+    },
+    {
+        "id": "1409501a35697e0ce68561e29577b90a_5",
+        "utterance": "Okay, we can take care of that.",
+        "grounding": "Learn more about how to change the address on your license and registrations [1 ]"
+    },
+    {
+        "id": "1409501a35697e0ce68561e29577b90a_7",
+        "utterance": "Sure, it is. You can contact your college and get a certified copy.",
+        "grounding": "you may have received a General Educational Development GED certificate. You can contact the college for a certified copy. U.S. college transcripts."
+    },
+    {
+        "id": "1409501a35697e0ce68561e29577b90a_9",
+        "utterance": "Yes, as long as they be a phone, electricity, gas, water or cable bill.",
+        "grounding": "a phone bill, electricity / gas bill, water bill or cable bill. Divorce papers. You can contact your lawyer to find out where to go to obtain the papers, or check with the state where you got divorced."
+    }
+]

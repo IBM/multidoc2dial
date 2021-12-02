@@ -21,7 +21,7 @@ def matching_evaluate(references, predictions):
     for id_, ref_text in references.items():
         total += 1
         ground_truths = [ref_text]
-        prediction = predictions[id_]
+        prediction = predictions.get(id_, "")
         f1 += metric_max_over_ground_truths(f1_score, prediction, ground_truths)
         em += metric_max_over_ground_truths(exact_match_score, prediction, ground_truths)
     f1 = 100.0 * f1 / total
@@ -37,37 +37,37 @@ def matching_metrics(task, reference_json, prediction_json):
     with open(reference_json) as fp_ref:
         data = json.load(fp_ref)
         for d_ref in data:
-            d_id_reference[d_ref["id"]] = d_ref["text"]
-            references_list.append([d_ref["text"]])
-            references_text.append(d_ref["text"])
+            d_id_reference[d_ref["id"]] = d_ref[task]
+            references_list.append([d_ref[task]])
+            references_text.append(d_ref[task])
     predictions = []
     d_id_prediction = {}
     with open(prediction_json) as fp_pred:
         data = json.load(fp_pred)
         for d_pred in data:
-            d_id_prediction[d_pred["id"]] = d_pred["text"]
-            predictions.append(d_pred["text"])
+            d_id_prediction[d_pred["id"]] = d_pred[task]
+            predictions.append(d_pred[task])
     assert (
         len(predictions) == len(references_list) == len(references_text)
     ), "Ensure the matching count of instances of references and predictioins"
 
+    output = {}
     f1_score, em_score = matching_evaluate(references=d_id_reference, predictions=d_id_prediction)
-    metric_sacrebleu = load_metric("sacrebleu")
-    results = metric_sacrebleu.compute(predictions=predictions, references=references_list)
-    sacrebleu_score = results["score"]
+    if task == "utterance":
+        metric_sacrebleu = load_metric("sacrebleu")
+        results = metric_sacrebleu.compute(predictions=predictions, references=references_list)
+        sacrebleu_score = results["score"]
 
-    metric_meteor = load_metric("meteor")
-    results = metric_meteor.compute(predictions=predictions, references=references_text)
-    meteor_score = round(results["meteor"] * 100, 4)
+        metric_meteor = load_metric("meteor")
+        results = metric_meteor.compute(predictions=predictions, references=references_text)
+        meteor_score = round(results["meteor"] * 100, 4)
 
-    metric_rouge = load_metric("rouge")
-    results = metric_rouge.compute(predictions=predictions, references=references_text)
-    rouge_score = round(results["rougeL"].mid.fmeasure * 100, 4)
-
-    if task == "grounding":
-        output = {"EM": em_score, "F1": f1_score}
+        metric_rouge = load_metric("rouge")
+        results = metric_rouge.compute(predictions=predictions, references=references_text)
+        rouge_score = round(results["rougeL"].mid.fmeasure * 100, 4)
+        output = {"F1_U": f1_score, "SACREBLEU_U": sacrebleu_score, "METEOR_U": meteor_score, "ROUGE-L_U": rouge_score}
     else:
-        output = {"F1": f1_score, "SACREBLEU": sacrebleu_score, "METEOR": meteor_score, "ROUGE-L": rouge_score}
+        output = {"EM_G": em_score, "F1_G": f1_score}
     return output
 
 
