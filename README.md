@@ -20,47 +20,71 @@ conda env create -f conda_env.yml
 ```
 
 ## Data
-Please run the commands to download data. It will download the document and dialogue data in folder  `data/multidoc2dial` and `data/multidoc2dial_domain` for domain adaptation setup.
+
+Please run the commands to download data. It will download the document and dialogue data into folder  `data/multidoc2dial`.
+
 ```bash
 cd scripts
 ./run_download.sh
 ```
 
 ### Document preprocessing
-To split the document to passages and create FAISS index, please refer to
-[`run_data_preprocessing.sh`](scripts/run_data_preprocessing.sh)
-For domain adaptation set up with a target domain, e.g.,  `domain=ssa`, please refer to
-[`run_data_preprocessing_domain.sh`](scripts/run_data_preprocessing_domain.sh)
+
+To segment the document into passages, please refer to
+> [`run_data_preprocessing.sh`](scripts/run_data_preprocessing.sh)
+
 ### Data preprocessing for fine-tuning DPR
-To create positive and negative examples in the format of [DPR](https://github.com/facebookresearch/DPR) , please refer to
-[`run_data_preprocessing_dpr.sh`](scripts/run_data_preprocessing_dpr.sh)
-For domain adaptation setting, please refer to
-[`run_data_preprocessing_dpr_domain.sh`](scripts/run_data_preprocessing_dpr_domain.sh)
-## Baselines
+
+If you are finetuning DPR on MultiDoc2Dial, please refer to [`run_data_preprocessing_dpr.sh`](scripts/run_data_preprocessing_dpr.sh) create positive and negative examples in the format of [DPR](https://github.com/facebookresearch/DPR).
+
+## Run Baselines
+
 ### Finetuning DPR
-To finetune DPR, we use Facebook [DPR](https://github.com/facebookresearch/DPR) with an effective batch size 128.
-Convert your fine-tuned DPR checkpoint with the [converter](https://github.com/huggingface/transformers/blob/master/src/transformers/models/dpr/convert_dpr_original_checkpoint_to_pytorch.py);
-or you can access our fine-tuned DPR encoders with the following paths
-- `sivasankalpp/dpr-multidoc2dial-token-question-encoder` for fine-tuned dpr question encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-question-encoder))
-- `sivasankalpp/dpr-multidoc2dial-token-ctx-encoder` for fine-tuned dpr ctx encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-ctx-encoder))
-- `sivasankalpp/dpr-multidoc2dial-structure-question-encoder` fine-tuned dpr question encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-question-encoder))
-- `sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder` for fine-tuned dpr ctx encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder))
-Download the following files from RAG model cards to "../data" folder
 
-- <https://huggingface.co/facebook/rag-token-nq/resolve/main/question_encoder_tokenizer/tokenizer_config.json>
+To finetune DPR, we use Facebook [DPR](https://github.com/facebookresearch/DPR) (March 2021 release)  with an effective batch size 128. You can finetune DPR on MultiDoc2Dial data yourself ; or use our finetuned version.
 
-- <https://huggingface.co/facebook/rag-token-nq/blob/main/question_encoder_tokenizer/vocab.txt>
-[`run_converter.sh`](scripts/run_converter.sh)
+*If you would like to finetune DPR yourself*, please refer to Facebook [DPR](https://github.com/facebookresearch/DPR) for detailed instructions.
+
+Or
+
+*If you would like to use our finetuned DPR encoders*, please use the the following paths as the model path to ctx or question encoder (for instance, [`run_converter_modelcard.sh`](scripts/run_converter_modelcard.sh)),
+  - `sivasankalpp/dpr-multidoc2dial-token-question-encoder` for fine-tuned DPR question encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-question-encoder))
+  - `sivasankalpp/dpr-multidoc2dial-token-ctx-encoder` for fine-tuned DPR ctx encoder based on token-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-token-ctx-encoder))
+  - `sivasankalpp/dpr-multidoc2dial-structure-question-encoder` fine-tuned DPR question encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-question-encoder))
+  - `sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder` for fine-tuned DPR ctx encoder based on structure-segmented document passages ([link](https://huggingface.co/sivasankalpp/dpr-multidoc2dial-structure-ctx-encoder))
+
+### Using finetuned DPR encoders in RAG
+
+*If you obtain your own finetuned DPR checkpoints,*
+1. Download the following files from RAG model cards to "../data" folder
+  - <https://huggingface.co/facebook/rag-token-nq/resolve/main/question_encoder_tokenizer/tokenizer_config.json>
+  - <https://huggingface.co/facebook/rag-token-nq/blob/main/question_encoder_tokenizer/vocab.txt>
+
+2. Convert your fine-tuned DPR checkpoint and add it to RAG model. Please refer to [`run_converter.sh`](scripts/run_converter.sh).
+
+OR
+
+*If you use our finetuned DPR encoders*, please refer to [`run_converter_modelcard.sh`](scripts/run_converter_modelcard.sh).
+
+
 ### Finetuning RAG
 
+Our implementation is based on [Huggingface RAG](https://huggingface.co/docs/transformers/master/model_doc/rag). Please refer to their [README](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag#readme) for more detailed explanations on document retrieval and finetuning RAG.
+
+To create FAISS index, please refer to
+> [`run_kb_index.sh`](scripts/run_kb_index.sh)
+
 To finetune RAG on MultiDoc2Dial data, please refer to
-[`run_finetune_rag.sh`](scripts/run_finetune_rag.sh)
+> [`run_finetune_rag.sh`](scripts/run_finetune_rag.sh)
+
 ## Evaluations
 
 To evaluate the retrieval results (recall@n for passage and document level), please refer to
-[`run_eval_rag_re.sh`](scripts/run_eval_rag_re.sh)
+> [`run_eval_rag_re.sh`](scripts/run_eval_rag_re.sh)
+
 To evaluate the generation results, please refer to
-[`run_eval_rag_e2e.sh`](scripts/run_eval_rag_e2e.sh)
+> [`run_eval_rag_e2e.sh`](scripts/run_eval_rag_e2e.sh)
+
 ## Results
 
 The evaluation results on the validation set of agent response generation task Please refer to the `scripts` for corresponding hyperparameters.
@@ -73,4 +97,5 @@ The evaluation results on the validation set of agent response generation task P
 | D-struct-ft | 33.7 | 3.5 | 19.5 | 37.5 | 67.0 | 75.8  |
 
 ## Acknowledgement
+
 Our code is based on [Huggingface Transformers](https://github.com/huggingface/transformers). Our dataset is based on [Doc2Dial](https://arxiv.org/abs/2011.06623). We thank the authors for sharing their great work.
