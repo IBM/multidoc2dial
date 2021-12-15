@@ -96,6 +96,10 @@ The evaluation results on the validation set of agent response generation task P
 | D-token-ft  | 33.2 | 3.4 | 18.8 | 35.2 | 63.4 | 72.9  |
 | D-struct-ft | 33.7 | 3.5 | 19.5 | 37.5 | 67.0 | 75.8  |
 
+## Leaderboard
+
+Please check out our [**leaderboard**](https://eval.ai/web/challenges/challenge-page/1437/overview) and [**Shared Task**](http://doc2dial.github.io/workshop2022/#shared).
+
 ## Acknowledgement
 
 Our code is based on [Huggingface Transformers](https://github.com/huggingface/transformers). Our dataset is based on [Doc2Dial](https://arxiv.org/abs/2011.06623). We thank the authors for sharing their great work.
