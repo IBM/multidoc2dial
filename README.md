@@ -19,6 +19,10 @@ Please refer to `conda_env.yml` for creating a virtual environment.
 conda env create -f conda_env.yml
 ```
 
+Our scripts require to set the following environment variables,
+- `HF_HOME`- for caching downloads from [Huggingface](https://huggingface.co/transformers/v4.0.1/installation.html#caching-models) locally.
+- `CHECKPOINTS` for saving the checkpoints.
+
 ## Data
 
 Please run the commands to download data. It will download the document and dialogue data into folder  `data/multidoc2dial`.
