@@ -453,11 +453,11 @@ class DialDocRagRetriever(RagRetriever):
         ids_batched = []
         vectors_batched = []
         scores_batched = []
-        for comb_h_s, curr_h_s, hist_h_s, dom_batch in zip(
+        for comb_h_s, curr_h_s, hist_h_s in zip(
             combined_hidden_states_batched,
             current_hidden_states_batched,
             history_hidden_states_batched,
-            domain_batched,
+            # domain_batched,
         ):
             start_time = time.time()
             if self.config.scoring_func in ["linear", "linear2", "linear3", "nonlinear"]:
